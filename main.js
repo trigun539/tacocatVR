@@ -30,10 +30,40 @@ function initScene() {
   camera = new THREE.PerspectiveCamera(60, 1280 / 800, 0.001, 10);
   camera.position.z = 2;
   scene = new THREE.Scene();
-  var geometry = new THREE.IcosahedronGeometry(1, 1);
-  var material = new THREE.MeshNormalMaterial();
-  mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
+
+  var light = new THREE.DirectionalLight( 0xffffff, 1 );
+  light.position.set( 1, 1, 1 ).normalize();
+  scene.add( light );
+  // var geometry = new THREE.IcosahedronGeometry(1, 1);
+  // var material = new THREE.MeshNormalMaterial();
+  // mesh = new THREE.Mesh(geometry, material);
+
+
+  // // material
+  // var cubeGeometry = new THREE.BoxGeometry(1,1,1);
+  // var cubeMaterial = new THREE.MeshNormalMaterial();
+  // mesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+  // scene.add(mesh);
+  // scene.add(mesh2);
+  nyanCat = new THREEx.NyanCat();
+  nyanCat.container.scale.multiplyScalar(1/30);
+
+  // flameThrower = new THREEx.FlameThrowerFull();
+  // flameThrower.container.scale.multiplyScalar(2/30);
+
+  var position    = new THREE.Vector3(-4,0,-3)
+  // velocity
+  var velocity    = new THREE.Vector3(7, 0, 0)
+  flameFull   = new THREEx.FlameThrowerFull(position, velocity, scene, function(){
+      // function notified when all is loaded
+      //flameFull.start();
+  });
+
+//mesh = new THREE.Mesh()
+  scene.add(nyanCat.container);
+  scene.add(flameFull);
+
 }
 
 function initRenderer() {
@@ -48,7 +78,24 @@ function initRenderer() {
 
 function render() {
   requestAnimationFrame(render);
-  mesh.rotation.y += 0.01;
+  //mesh.rotation.y += 0.01;
+  var randX = (Math.random() - Math.random()) * .2;
+  if (nyanCat.container.position.x > -3 && nyanCat.container.position.x < 3){
+    nyanCat.container.position.x += randX;
+  }
+
+  // var randY = (Math.random() - Math.random()) * .05;
+
+  // if (nyanCat.container.position.y > -5 && nyanCat.container.position.y < 5 ){
+  //   nyanCat.container.position.y += randY;
+  // }
+
+  var randZ = (Math.random() - Math.random()) * .05;
+
+  if (nyanCat.container.position.z > -5 && nyanCat.container.position.z < 5 ){
+    nyanCat.container.position.z += randZ;
+  }
+
   var state = vrHMDSensor.getState();
   camera.quaternion.set(state.orientation.x,
                         state.orientation.y,
@@ -68,5 +115,26 @@ window.addEventListener("keypress", function(e) {
         vrDisplay: vrHMD,
       });
     }
+  }
+
+  // Direction controls
+  if(e.charCode == 'w'.charCodeAt(0)){
+    camera.position.z -= .1;
+  }
+
+  if (e.charCode == 's'.charCodeAt(0)){
+    camera.position.z += .1;
+  }
+
+  if (e.charCode == 'a'.charCodeAt(0)){
+    camera.position.x -= .1;
+  }
+
+  if (e.charCode == 'd'.charCodeAt(0)){
+    camera.position.x += .1;
+  }
+
+  if (e.charCode == 'e'.charCodeAt(0)){
+    flameFull.start();
   }
 }, false);
