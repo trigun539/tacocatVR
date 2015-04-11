@@ -40,8 +40,6 @@ function initScene() {
 
   //mesh = new THREE.Mesh()
   scene.add(nyanCat.container);
-  scene.add(flameFull);
-
 }
 
 function initRenderer() {
