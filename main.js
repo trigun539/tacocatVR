@@ -34,33 +34,11 @@ function initScene() {
   var light = new THREE.DirectionalLight( 0xffffff, 1 );
   light.position.set( 1, 1, 1 ).normalize();
   scene.add( light );
-  // var geometry = new THREE.IcosahedronGeometry(1, 1);
-  // var material = new THREE.MeshNormalMaterial();
-  // mesh = new THREE.Mesh(geometry, material);
 
-
-  // // material
-  // var cubeGeometry = new THREE.BoxGeometry(1,1,1);
-  // var cubeMaterial = new THREE.MeshNormalMaterial();
-  // mesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
-
-  // scene.add(mesh);
-  // scene.add(mesh2);
   nyanCat = new THREEx.NyanCat();
   nyanCat.container.scale.multiplyScalar(1/30);
 
-  // flameThrower = new THREEx.FlameThrowerFull();
-  // flameThrower.container.scale.multiplyScalar(2/30);
-
-  var position    = new THREE.Vector3(-4,0,-3)
-  // velocity
-  var velocity    = new THREE.Vector3(7, 0, 0)
-  flameFull   = new THREEx.FlameThrowerFull(position, velocity, scene, function(){
-      // function notified when all is loaded
-      //flameFull.start();
-  });
-
-//mesh = new THREE.Mesh()
+  //mesh = new THREE.Mesh()
   scene.add(nyanCat.container);
   scene.add(flameFull);
 
@@ -84,6 +62,7 @@ function render() {
     nyanCat.container.position.x += randX;
   }
 
+  // controls vertical movement
   // var randY = (Math.random() - Math.random()) * .05;
 
   // if (nyanCat.container.position.y > -5 && nyanCat.container.position.y < 5 ){
