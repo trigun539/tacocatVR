@@ -37,9 +37,16 @@ function initScene() {
 
   nyanCat = new THREEx.NyanCat();
   nyanCat.container.scale.multiplyScalar(1/30);
-
-  //mesh = new THREE.Mesh()
   scene.add(nyanCat.container);
+
+  var building = new THREE.BoxGeometry( 1, 1, 1 );
+  var material = new THREE.MeshNormalMaterial();
+  mesh = new THREE.Mesh( building, material );
+  mesh.position.x = 1;
+  mesh.position.y = 1;
+  mesh.position.z = 1;
+  scene.add( mesh );
+
 }
 
 function initRenderer() {
@@ -54,24 +61,6 @@ function initRenderer() {
 
 function render() {
   requestAnimationFrame(render);
-  //mesh.rotation.y += 0.01;
-  var randX = (Math.random() - Math.random()) * .2;
-  if (nyanCat.container.position.x > -3 && nyanCat.container.position.x < 3){
-    nyanCat.container.position.x += randX;
-  }
-
-  // controls vertical movement
-  // var randY = (Math.random() - Math.random()) * .05;
-
-  // if (nyanCat.container.position.y > -5 && nyanCat.container.position.y < 5 ){
-  //   nyanCat.container.position.y += randY;
-  // }
-
-  var randZ = (Math.random() - Math.random()) * .05;
-
-  if (nyanCat.container.position.z > -5 && nyanCat.container.position.z < 5 ){
-    nyanCat.container.position.z += randZ;
-  }
 
   var state = vrHMDSensor.getState();
   camera.quaternion.set(state.orientation.x,
